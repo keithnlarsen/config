@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Installing Java..."
+
+sudo add-apt-repository "deb http://archive.canonical.com/ natty partner"
+sudo apt-get update
+sudo apt-get install -y sun-java6-jdk
+sudo apt-get install -y sun-java6-jre
+rm -f ~/.mozilla/plugins/libnpjp2.so ~/.mozilla/plugins/libjavaplugin_oji.so
+sudo rm -f /usr/lib/firefox/plugins/libnpjp2.so /usr/lib/firefox/plugins/libjavaplugin_oji.so
+sudo update-java-alternatives -s java-6-sun
+sudo ln -s /usr/lib/jvm/java-6-sun/jre/lib/amd64/libnpjp2.so ~/.mozilla/plugins/
+

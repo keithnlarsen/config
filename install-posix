@@ -1,0 +1,97 @@
+#!/bin/bash
+#
+# Initialize POSIX configuration, symlinking configuration files
+# to this directory, and shell scripts to ~/scripts.
+# This script is idempotent, and ensures that existing dotfiles, as well
+# as the contents of the ~/scripts directory, will be removed.
+# This is intentional - it forces me to maintain everything here rather
+# than separately on each machine I work on.
+# Before removing anything, this script will backup existing files in
+# BACKUP_DIR (defaults to ~/.backup.)
+# The backup directory is a git repository managed by scripts/backup.
+# This script will pass any command line arguments to scripts/backup,
+# giving you control over whether to commit the changes or not
+# If you do commit (with either a -c or -m argument), only one commit
+# will be made for all changes.
+
+function linkfiles() {
+    sourcedir=$1
+    destprefix=$2
+
+    for file in $(ls $sourcedir); do
+        if test -f $sourcedir/$file; then
+            ln -s $(pwd)/$sourcedir/$file ${destprefix}${file}
+        fi
+    done
+}
+
+function backup() {
+    file=$1
+
+    if test -e $file -o -L $file; then
+        scripts/backup $file
+        rm -rf $file
+    fi
+}
+
+# Figure out arguments to pass scripts/backup.  We can't simply pass "$@"
+# because, if we commit, we only do it once at the end, but we need the
+# -d option for all individual backup calls.
+while getopts ":cd:m:" option; do
+    case $option in
+        d)
+            # Same as setting -d on command line
+            export BACKUP_DIR=$OPTARG
+            ;;
+        c)
+            commit=1
+            ;;
+        m)
+            commit=1
+            ;;
+        *)
+            echo Invalid command line arguments, which get used for backup
+            echo "Try 'scripts/backup -h' for more info"
+            exit 1
+            ;;
+    esac
+done
+
+# First backup
+backup ~/scripts
+backup ~/git-completion.bash;
+backup ~/.oh-my-zsh
+backup ~/.MacOSX
+backup ~/.nvm
+
+for file in $(ls dotfiles); do
+    backup ~/.$file
+done
+
+platform=none
+if test $(uname) = 'Darwin'; then
+    platform=osx
+elif test $(uname) = 'Linux'; then
+    platform=linux
+fi
+
+mkdir ~/scripts
+linkfiles dotfiles          ~/.
+linkfiles scripts           ~/scripts/
+linkfiles scripts/$platform ~/scripts/
+
+# Change to zsh and use oh-my-zsh
+chsh -s /bin/zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+
+wget -O ~/git-completion.bash --no-check-certificate https://github.com/git/git/raw/next/contrib/completion/git-completion.bash
+
+git clone git://github.com/creationix/nvm.git ~/.nvm
+
+# plist needed for Cocoa apps
+if test $platform = 'osx'; then
+    ln -s platforms/osx/MacOSX ~/.MacOSX
+fi
+if test ! -z $commit; then
+    scripts/backup "$@"
+fi

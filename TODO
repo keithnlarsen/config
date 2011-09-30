@@ -1,0 +1,9 @@
+mac:
+	-java
+	-intellij
+	-android
+
+linux:
+	-intellij color scheme and environment setings
+	-jenkins-ci
+	-hockeykit

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if test $(uname) = 'Darwin'; then
+    platforms/osx/install-scala
+elif test $(uname) = 'Linux'; then
+    platforms/linux/install-scala
+fi

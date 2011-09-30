@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# --------------------------------------------------
+#  Setup Android SDK
+# --------------------------------------------------
+echo "Installing Android SDK..."
+
+wget wget http://dl.google.com/android/android-sdk_r13-linux_x86.tgz
+if [ $? -ne 0 ]; then
+  echo "Android SDK: Failed to download package, please check package name."
+  exit 1
+fi
+
+tar -xvf android-sdk_r13-linux_x86.tgz 1>>setup.log 2>>setup.errors
+rm android-sdk_r13-linux_x86.tgz 1>>setup.log 2>>setup.errors
+sudo mv android-sdk-linux_x86 /usr/lib/android-r13 1>>setup.log 2>>setup.errors
+sudo ln -s /usr/lib/android-r13 /usr/lib/android 1>>setup.log 2>>setup.errors
+
+echo '# Added by Android SDK Install' | tee -a ~/.profile
+echo 'export PATH="/usr/lib/android/platform-tools:/usr/lib/android/tools:$PATH"' | tee -a ~/.profile
+echo 'export ANDROID_SDK="/usr/lib/android"' | tee -a ~/.profile
+
+sudo /usr/lib/android/tools/android update sdk -f --no-ui -t doc,extra,platform,platform-tool,sample,tool
+
+# --------------------------------------------------
+#  Setup Android-Upgrade
+# --------------------------------------------------
+echo "Setting up upgradeandroid..."
+echo 'alias upgradeandroid="sudo /usr/lib/android/tools/android update sdk -f --no-ui -t doc,extra,platform,platform-tool,sample,tool"' | tee -a ~/.bash_aliases 1>>setup.log 2>>setup.errors
+
+if [ $?=0 ]
+then echo "Android SDK: installed"
+else
+  echo "Android SDK: failed"
+  exit 1
+fi

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo
+echo "Installing Firefox"
+scripts/osx/install-dmg.sh http://download.mozilla.org/?product=firefox-4.0&os=osx&lang=en-US > /dev/null 2>&1
+
+
