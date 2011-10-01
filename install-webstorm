@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if test $(uname) = 'Darwin'; then
+    platforms/osx/install-webstorm
+elif test $(uname) = 'Linux'; then
+    platforms/linux/install-webstorm
+fi

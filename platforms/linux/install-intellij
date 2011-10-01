@@ -5,7 +5,7 @@
 # --------------------------------------------------
 #  Setup Intelli-J 10.5
 # --------------------------------------------------
-echo "Installing Intelli-J 10.5..."
+echo "Installing Intelli-J 10.5.2..."
 
 wget http://download-ln.jetbrains.com/idea/ideaIC-10.5.2.tar.gz
 if [ $? -ne 0 ]; then
@@ -15,23 +15,27 @@ fi
 
 tar -xvf ideaIC-10.5.2.tar.gz
 rm ideaIC-10.5.2.tar.gz
-sudo mv idea-IC-107.587 /usr/lib/Intelli-J-10
-sudo ln -s /usr/lib/Intelli-J-10 /usr/lib/Intelli-J
-sudo ln -s /usr/lib/Intelli-J-10/bin/idea.sh /usr/bin/intellij
+
+sudo mv idea-IC-107.587 /usr/lib/Intelli-J-10.5.2
+sudo ln -s /usr/lib/Intelli-J-10.5.2 /usr/lib/Intelli-J
+sudo ln -s /usr/lib/Intelli-J-10.5.2/bin/idea.sh /usr/bin/intellij
 sudo cp /usr/lib/Intelli-J/bin/idea_CE48.png /usr/share/pixmaps/intellij-48.png
 
 sudo sh -c 'echo "[Desktop Entry]" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 sudo sh -c 'echo "Encoding=UTF-8" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 sudo sh -c 'echo "Version=1.0" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
-sudo sh -c 'echo "Name=Intelli-J 10.5" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
+sudo sh -c 'echo "Name=Intelli-J 10" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 sudo sh -c 'echo "Comment=IDE for Java, Scala and Groovy" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 sudo sh -c 'echo "Categories=Development;" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
-sudo sh -c 'echo "Exec=/usr/lib/Intelli-J/bin/idea.sh" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
+sudo sh -c 'echo "Exec=/usr/bin/intellij" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 sudo sh -c 'echo "Icon=/usr/share/pixmaps/intellij-48.png" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 sudo sh -c 'echo "Terminal=false" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 sudo sh -c 'echo "Type=Application" | tee -a /usr/share/applications/jetbrains-intellij.desktop'
 
 xdg-desktop-menu install /usr/share/applications/jetbrains-intellij.desktop
+
+tar -xvf dotfiles/.IdeaIC10.tar.gz
+mv dotfiles/.IdeaIC10 ~/.IdeaIC10
 
 # --------------------------------------------------
 #  Setup IntelliJ-Upgrade
@@ -39,39 +43,10 @@ xdg-desktop-menu install /usr/share/applications/jetbrains-intellij.desktop
 echo "Setting up upgradeintellij..."
 
 mkdir ~/.local
+cp platforms/linux/upgrade-intellij.sh ~/.local/upgrade-intellij.sh
+echo 'alias upgradeintellij="$HOME/.local/upgrade-intellij.sh"' | tee -a ~/.bash_aliases
 
-echo '#!/bin/sh' | tee -a ~/.local/intellij-upgrade.sh
-echo '' | tee -a ~/.local/intellij-upgrade.sh
-echo 'read -p "Please enter the version number you wish to upgrade to:" version' | tee -a ~/.local/intellij-upgrade.sh
-echo '' | tee -a ~/.local/intellij-upgrade.sh
-echo 'wget http://download-ln.jetbrains.com/idea/ideaIC-$version.tar.gz' | tee -a ~/.local/intellij-upgrade.sh
-echo 'if [ $? -ne 0 ]; then' | tee -a ~/.local/intellij-upgrade.sh
-echo '  echo "Intelli-J: Failed to download package, please check package name."' | tee -a ~/.local/intellij-upgrade.sh
-echo '  exit 1' | tee -a ~/.local/intellij-upgrade.sh
-echo 'fi' | tee -a ~/.local/intellij-upgrade.sh
-
-echo '' | tee -a ~/.local/intellij-upgrade.sh
-echo 'tar -xvf ideaIC-$version.tar.gz' | tee -a ~/.local/intellij-upgrade.sh
-echo 'rm ideaIC-$version.tar.gz' | tee -a ~/.local/intellij-upgrade.sh
-echo '' | tee -a ~/.local/intellij-upgrade.sh
-echo 'sudo rm /usr/bin/intellij' | tee -a ~/.local/intellij-upgrade.sh
-echo 'sudo rm /usr/lib/Intelli-J' | tee -a ~/.local/intellij-upgrade.sh
-echo 'sudo rm -rf /usr/lib/Intelli-J-10/' | tee -a ~/.local/intellij-upgrade.sh
-echo 'sudo mv idea-IC-* /usr/lib/Intelli-J-10' | tee -a ~/.local/intellij-upgrade.sh
-echo 'rm idea-IC-*' | tee -a ~/.local/intellij-upgrade.sh
-echo 'sudo ln -s /usr/lib/Intelli-J-10 /usr/lib/Intelli-J' | tee -a ~/.local/intellij-upgrade.sh
-echo 'sudo ln -s /usr/lib/Intelli-J-10/bin/idea.sh /usr/bin/intellij' | tee -a ~/.local/intellij-upgrade.sh
-echo '' | tee -a ~/.local/intellij-upgrade.sh
-echo 'if [ $?=0 ]' | tee -a ~/.local/intellij-upgrade.sh
-echo 'then echo "Intelli-J: upgraded"' | tee -a ~/.local/intellij-upgrade.sh
-echo 'else' | tee -a ~/.local/intellij-upgrade.sh
-echo '  echo "Intelli-J: failed"' | tee -a ~/.local/intellij-upgrade.sh
-echo '  exit 1' | tee -a ~/.local/intellij-upgrade.sh
-echo 'fi' | tee -a ~/.local/intellij-upgrade.sh
-
-echo 'alias upgradeintellij="~/.local/intellij-upgrade.sh"' | tee -a ~/.bash_aliases
-
-chmod 755 ~/.local/intellij-upgrade.sh
+chmod 755 ~/.local/upgrade-intellij.sh
 
 if [ $?=0 ]
 then echo "Intelli-J: installed"
