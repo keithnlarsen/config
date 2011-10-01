@@ -35,7 +35,7 @@ sudo sh -c 'echo "Type=Application" | tee -a /usr/share/applications/jetbrains-w
 xdg-desktop-menu install /usr/share/applications/jetbrains-webstorm.desktop
 
 tar -xvf dotfiles/.WebIde10.tar.gz
-mv dotfiles/.WebIde10 ~/.WebIde10
+mv .WebIde10 ~/.WebIde10
 
 # --------------------------------------------------
 #  Setup Webstorm Upgrade

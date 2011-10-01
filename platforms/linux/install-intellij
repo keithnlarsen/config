@@ -35,7 +35,7 @@ sudo sh -c 'echo "Type=Application" | tee -a /usr/share/applications/jetbrains-i
 xdg-desktop-menu install /usr/share/applications/jetbrains-intellij.desktop
 
 tar -xvf dotfiles/.IdeaIC10.tar.gz
-mv dotfiles/.IdeaIC10 ~/.IdeaIC10
+mv .IdeaIC10 ~/.IdeaIC10
 
 # --------------------------------------------------
 #  Setup IntelliJ-Upgrade
