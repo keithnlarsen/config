@@ -5,7 +5,7 @@
 # --------------------------------------------------
 echo "Installing Android SDK..."
 
-wget wget http://dl.google.com/android/android-sdk_r13-linux_x86.tgz
+wget http://dl.google.com/android/android-sdk_r13-linux_x86.tgz
 if [ $? -ne 0 ]; then
   echo "Android SDK: Failed to download package, please check package name."
   exit 1
