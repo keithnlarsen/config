@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# --------------------------------------------------
+#  Installing Maven
+# --------------------------------------------------
+echo "Installing Maven..."
+
+wget http://apache.sunsite.ualberta.ca/maven/binaries/apache-maven-3.0.3-bin.tar.gz
+if [ $? -ne 0 ]; then
+  echo "Maven: Failed to download package, please check package name."
+  exit 1
+fi
+
+tar -xvf apache-maven-3.0.3-bin.tar.gz
+rm apache-maven-3.0.3-bin.tar.gz
+sudo mv apache-maven-3.0.3 /usr/lib/apache-maven-3.0.3
+sudo ln -s /usr/lib/apache-maven-3.0.3 /usr/lib/apache-maven
+sudo ln -s /usr/lib/apache-maven-3.0.3/bin/mvn /usr/bin/mvn
+
+echo '' | tee -a ~/.profile
+echo '# Added by Maven Install' | tee -a ~/.profile
+echo 'export PATH="/usr/lib/apache-maven/bin:$PATH"' | tee -a ~/.profile
+echo 'export MAVEN_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
+echo 'export M2_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
+echo 'export M2="/usr/lib/apache-maven/bin"' | tee -a ~/.profile
+
+# --------------------------------------------------
+#  Setup Maven-Upgrade
+# --------------------------------------------------
+echo "Setting up upgrademaven..."
+
+mkdir ~/.local
+cp platforms/linux/upgrade-maven.sh ~/.local/upgrade-maven.sh
+echo 'alias upgrademaven="$HOME/.local/upgrade-maven.sh"' | tee -a ~/.bash_aliases
+
+chmod 755 ~/.local/upgrade-maven.sh
+
+if [ $?=0 ]
+then echo "Maven: installed"
+else
+  echo "Maven: failed"
+  exit 1
+fi
+

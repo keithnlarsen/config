@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if test $(uname) = 'Darwin'; then
+    platforms/osx/install-maven
+elif test $(uname) = 'Linux'; then
+    platforms/linux/install-maven
+fi
