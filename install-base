@@ -4,4 +4,5 @@ if test $(uname) = 'Darwin'; then
     platforms/osx/install-base
 elif test $(uname) = 'Linux'; then
     platforms/linux/install-base
+    platforms/linux/install-movewindow
 fi

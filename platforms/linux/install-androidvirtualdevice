@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# --------------------------------------------------
+#  Setup Android Virtual Device
+# --------------------------------------------------
+echo "Installing Android Virtual Device..."
+
+mkdir ~/.android
+mkdir ~/.android/avd
+mkdir ~/.android/avd/android22.avd
+
+android create avd -t 8 -p ~/.android/avd -n "android22" --force
+
+rm ~/.android/avd/config.ini
+rm ~/.android/avd/userdata.img
+
+rm ~/.android/avd/android22.ini
+touch ~/.android/avd/android22.ini
+echo 'target=android-8' | tee -a ~/.android/avd/android22.ini
+echo path=$HOME/.android/avd/android22.avd | tee -a ~/.android/avd/android22.ini
+
+mkdir ~/.android/avd/android22.avd
+touch ~/.android/avd/android22.avd/config.ini
+echo 'hw.lcd.density=240' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'sdcard.size=1G' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'skin.name=WVGA800' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'skin.path=platforms/android-8/skins/WVGA800' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'hw.cpu.arch=arm' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'hw.keyboard.lid=no' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'abi.type=armeabi' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'vm.heapSize=48' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'hw.ramSize=512' | tee -a ~/.android/avd/android22.avd/config.ini
+echo 'image.sysdir.1=platforms/android-8/images/' | tee -a ~/.android/avd/android22.avd/config.ini
+
+if [ $?=0 ]
+then echo "Android SDK: installed"
+else
+  echo "Android SDK: failed"
+  exit 1
+fi

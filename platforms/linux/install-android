@@ -18,7 +18,7 @@ sudo ln -s /usr/lib/android-r13 /usr/lib/android
 
 echo '# Added by Android SDK Install' | tee -a ~/.profile
 echo 'export PATH="/usr/lib/android/platform-tools:/usr/lib/android/tools:$PATH"' | tee -a ~/.profile
-echo 'export ANDROID_SDK="/usr/lib/android"' | tee -a ~/.profile
+echo 'export ANDROID_HOME="/usr/lib/android"' | tee -a ~/.profile
 
 sudo /usr/lib/android/tools/android update sdk -f --no-ui -t doc,extra,platform,platform-tool,sample,tool
 

@@ -2,6 +2,8 @@
 
 if test $(uname) = 'Darwin'; then
     platforms/osx/install-android
+    platforms/osx/install-androidvirtualdevice
 elif test $(uname) = 'Linux'; then
     platforms/linux/install-android
+    platforms/linux/install-androidvirtualdevice
 fi
