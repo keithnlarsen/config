@@ -13,7 +13,7 @@ echo 'xbindkeys &' | tee -a ~/.profile
 echo '# xbindkeys configuration' | tee -a ~/.xbindkeysrc
 echo '' | tee -a ~/.xbindkeysrc
 echo '#Move window to other monitor' | tee -a ~/.xbindkeysrc
-echo '"/home/keith/.local/movewindow.sh"' | tee -a ~/.xbindkeysrc
+echo '"movewindow"' | tee -a ~/.xbindkeysrc
 echo '    m:0xc + c:91' | tee -a ~/.xbindkeysrc
 echo '    Control+Alt + KP_Delete' | tee -a ~/.xbindkeysrc
 echo '' | tee -a ~/.xbindkeysrc
