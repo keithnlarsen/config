@@ -21,8 +21,8 @@ echo '' | tee -a ~/.profile
 echo '# Added by Maven Install' | tee -a ~/.profile
 echo 'export PATH="/usr/lib/apache-maven/bin:$PATH"' | tee -a ~/.profile
 echo 'export MAVEN_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
-echo 'export M2_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
-echo 'export M2="/usr/lib/apache-maven/bin"' | tee -a ~/.profile
+echo 'export M3_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
+echo 'export M3="/usr/lib/apache-maven/bin"' | tee -a ~/.profile
 
 # --------------------------------------------------
 #  Setup Maven-Upgrade
