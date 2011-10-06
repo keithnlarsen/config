@@ -23,7 +23,10 @@ echo 'export PATH="/usr/lib/apache-maven/bin:$PATH"' | tee -a ~/.profile
 echo 'export MAVEN_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
 echo 'export M3_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
 echo 'export M3="/usr/lib/apache-maven/bin"' | tee -a ~/.profile
+echo 'export M2_HOME="/usr/lib/apache-maven"' | tee -a ~/.profile
+echo 'export M2="/usr/lib/apache-maven/bin"' | tee -a ~/.profile
 
+mvn install:install-file -Dfile=$ANDROID_HOME/add-ons/addon_google_apis_google_inc_8/libs/maps.jar -DgroupId=com.google.android.maps -DartifactId=maps -Dversion=8_r1 -Dpackaging=jar
 # --------------------------------------------------
 #  Setup Maven-Upgrade
 # --------------------------------------------------
