@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# --------------------------------------------------
+#  Setup NodeJS
+# --------------------------------------------------
+mkdir -p .nodejssetup
+cd .nodejssetup
+
+echo "Installing Node..."
+git clone git://github.com/joyent/node.git
+cd node
+git checkout v0.6.12
+export GCC_VERSION=44
+./configure
+make
+sudo make install
+
+cd ..
+
+echo "Removing temporary files"
+cd ..
+rm -rf .nodejssetup
+
+# --------------------------------------------------
+#  Setup NodeJS Upgrade
+# --------------------------------------------------
+echo "Setting up upgradenodejs..."
+
+mkdir ~/.local
+cp platforms/linux/upgrade-nodejs.sh ~/.local/upgrade-nodejs.sh
+echo 'alias upgradenodejs="$HOME/.local/upgrade-nodejs.sh"' | tee -a ~/.bash_aliases
+
+chmod 755 ~/.local/upgrade-nodejs.sh
+
+if [ $?=0 ]
+then echo "Nodejs: installed"
+else
+  echo "Nodejs: failed"
+  exit 1
+fi
+
+exit 0
