@@ -20,9 +20,8 @@ sudo rm /usr/lib/Webstorm
 sudo rm -rf /usr/lib/Webstorm-*
 
 sudo mv WebStorm-* /usr/lib/Webstorm-$version
-rm WebStorm-*
 sudo ln -s /usr/lib/Webstorm-$version /usr/lib/Webstorm
-sudo ln -s /usr/lib/Webstorm-$version/bin/WebStorm.sh /usr/bin/webstorm
+sudo ln -s /usr/lib/Webstorm-$version/bin/webstorm.sh /usr/bin/webstorm
 
 if [ $?=0 ]
 then echo "Webstorm: upgraded"

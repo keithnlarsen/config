@@ -5,26 +5,26 @@
 # --------------------------------------------------
 #  Setup Webstorm 2
 # --------------------------------------------------
-echo "Installing Webstorm 2..."
+echo "Installing Webstorm..."
 
-wget http://download-ln.jetbrains.com/webide/WebStorm-2.1.5.tar.gz
+wget http://download-ln.jetbrains.com/webide/WebStorm-3.0.3.tar.gz
 if [ $? -ne 0 ]; then
   echo "Webstorm: Failed to download package, please check package name."
   exit 1
 fi
 
-tar -xvf WebStorm-2.1.5.tar.gz
-rm WebStorm-2.1.5.tar.gz
+tar -xvf WebStorm-3.0.3.tar.gz
+rm WebStorm-3.0.3.tar.gz
 
-sudo mv WebStorm-107.658 /usr/lib/Webstorm-2.1.5
-sudo ln -s /usr/lib/Webstorm-2.1.5 /usr/lib/Webstorm
-sudo ln -s /usr/lib/Webstorm-2.1.5/bin/WebStorm.sh /usr/bin/webstorm
+sudo mv WebStorm-111.344 /usr/lib/Webstorm-3.0.3
+sudo ln -s /usr/lib/Webstorm-3.0.3 /usr/lib/Webstorm
+sudo ln -s /usr/lib/Webstorm-3.0.3/bin/webstorm.sh /usr/bin/webstorm
 sudo cp /usr/lib/Webstorm/bin/webide.png /usr/share/pixmaps/webstorm.png
 
 sudo sh -c 'echo "[Desktop Entry]" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
 sudo sh -c 'echo "Encoding=UTF-8" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
 sudo sh -c 'echo "Version=1.0" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
-sudo sh -c 'echo "Name=Webstorm 2" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
+sudo sh -c 'echo "Name=Webstorm" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
 sudo sh -c 'echo "Comment=IDE for web development" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
 sudo sh -c 'echo "Categories=Development;" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
 sudo sh -c 'echo "Exec=/usr/bin/webstorm" | tee -a /usr/share/applications/jetbrains-webstorm.desktop'
